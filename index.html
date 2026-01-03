@@ -1,54 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Birthday, My Love</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #ffd6e8, #e0c3ff);
-      font-family: 'Georgia', serif;
-      color: #4a2c4f;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.85);
-      padding: 40px;
-      max-width: 700px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      white-space: pre-line;
-    }
-
-    .heart {
-      font-size: 2rem;
-      margin-top: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, My Love 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  .page {
+    display: none;
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease;
+  }
+  .page.active {
+    display: block;
+  }
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  .btn {
+    margin-top: 30px;
+    padding: 10px 25px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .btn:hover {
+    transform: scale(1.1);
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  /* Serduszka animowane */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    animation: floatUp 3s linear infinite;
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+  }
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: 10px; top: 0; }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(45deg); opacity: 1;}
+    100% { transform: translateY(-400px) rotate(45deg); opacity: 0;}
+  }
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>Happy Birthday, My Love 🎂</h1>
-    <p>
-      <!-- Paste the paragraph here -->
-    </p>
-    <div class="heart">❤️</div>
-  </div>
+
+<div class="page active" id="page1">
+  <h1>Happy Birthday, My Love! 💖</h1>
+  <p>
+    Dzisiaj jest Twój dzień i chcę, żebyś wiedział, że każdy moment z Tobą
+    jest dla mnie wyjątkowy. Twoje uśmiechy rozświetlają każdy mój dzień, 
+    a Twój śmiech to najlepsza melodia, jaką kiedykolwiek słyszałam.
+  </p>
+  <button class="btn" onclick="nextPage()">Następna strona ➤</button>
+</div>
+
+<div class="page" id="page2">
+  <h1>Moje serce bije dla Ciebie ❤️</h1>
+  <p>
+    Każdy dzień z Tobą to przygoda, którą chcę przeżywać bez końca. 
+    Jesteś moim wsparciem, radością i inspiracją. Dziękuję, że jesteś.
+  </p>
+  <button class="btn" onclick="nextPage()">Następna strona ➤</button>
+  <button class="btn" onclick="prevPage()">⬅ Wróć</button>
+</div>
+
+<div class="page" id="page3">
+  <h1>Wszystkiego najlepszego! 🎉</h1>
+  <p>
+    Mam nadzieję, że ten rok przyniesie Ci mnóstwo szczęścia, 
+    przygód i spełnienia wszystkich marzeń. Kocham Cię najmocniej 
+    na świecie i zawsze będę przy Tobie.
+  </p>
+  <button class="btn" onclick="prevPage()">⬅ Wróć</button>
+</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  let currentPage = 0;
+
+  function nextPage() {
+    pages[currentPage].classList.remove('active');
+    currentPage = Math.min(pages.length - 1, currentPage + 1);
+    pages[currentPage].classList.add('active');
+  }
+
+  function prevPage() {
+    pages[currentPage].classList.remove('active');
+    currentPage = Math.max(0, currentPage - 1);
+    pages[currentPage].classList.add('active');
+  }
+
+  // Serduszka losowe
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.width = heart.style.height = (10 + Math.random()*20) + 'px';
+    heart.style.animationDuration = (2 + Math.random()*3) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+  setInterval(createHeart, 500);
+</script>
+
 </body>
 </html>
